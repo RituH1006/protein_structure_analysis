@@ -1,0 +1,160 @@
+# Protein Structure/Function Analysis - Configuration File
+
+# PDB Data Settings
+pdb:
+  # Resolution limit in Angstroms (lower = higher quality)
+  resolution_limit: 3.0
+  # Experimental method filter
+  experimental_method: "X-RAY DIFFRACTION"
+  # Only include structures with valid protein sequences
+  exclude_non_standard: true
+  # Maximum number of structures to download
+  max_structures: null
+
+# UniProt Data Settings
+uniprot:
+  # Organism filter (e.g., "Homo sapiens", "Escherichia coli")
+  organism: null
+  # Protein existence evidence level (1-5)
+  # 1 = Protein level, 5 = Homology
+  evidence_level: 1
+
+# Feature Extraction Settings
+features:
+  # Physicochemical properties
+  calculate_properties:
+    molecular_weight: true
+    isoelectric_point: true
+    aromaticity: true
+    instability_index: true
+    gravy: true  # Grand Average of Hydrophathy
+
+  # Sequence features
+  sequence_features:
+    amino_acid_composition: true
+    dipeptide_frequency: true
+    kmer_size: 3
+    conservation_score: false
+
+  # Structure features
+  structure_features:
+    secondary_structure: true
+    solvent_accessibility: true
+    radius_of_gyration: true
+    contact_order: true
+    disulfide_bridges: true
+
+  # Normalize features
+  normalize: true
+  # Handle missing values
+  imputation_method: "mean"  # "mean", "median", or "drop"
+
+# Machine Learning Settings
+models:
+  # Random Forest
+  random_forest:
+    enabled: true
+    n_estimators: 100
+    max_depth: 10
+    min_samples_split: 5
+    random_state: 42
+
+  # Support Vector Machine
+  svm:
+    enabled: true
+    kernel: "rbf"
+    C: 1.0
+    gamma: "scale"
+
+  # Logistic Regression
+  logistic_regression:
+    enabled: true
+    max_iter: 1000
+    solver: "lbfgs"
+
+  # XGBoost
+  xgboost:
+    enabled: false
+    n_estimators: 100
+    max_depth: 6
+    learning_rate: 0.1
+
+# Cross-Validation Settings
+cross_validation:
+  # Number of folds
+  n_splits: 5
+  # Stratified or regular K-fold
+  stratified: true
+  # Random state for reproducibility
+  random_state: 42
+
+# Data Paths
+paths:
+  # Raw data directory
+  raw_data: "data/raw"
+  # Processed data directory
+  processed_data: "data/processed"
+  # External reference data
+  external_data: "data/external"
+  # Results directory
+  results: "results"
+  # Figures output
+  figures: "results/figures"
+  # Models output
+  models: "results/models"
+  # Tables output
+  tables: "results/tables"
+
+# Logging Settings
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  level: "INFO"
+  # Log file
+  file: "logs/analysis.log"
+  # Console output
+  console: true
+
+# Analysis Settings
+analysis:
+  # Random seed for reproducibility
+  random_seed: 42
+  # Number of jobs for parallel processing (-1 = all cores)
+  n_jobs: -1
+  # Verbose output
+  verbose: true
+
+# Plotting Settings
+plotting:
+  # Figure style
+  style: "seaborn-v0_8-darkgrid"
+  # DPI for saved figures
+  dpi: 300
+  # Figure format
+  format: "png"
+  # Color palette
+  palette: "husl"
+  # Figure size (width, height) in inches
+  figsize: [10, 6]
+
+# Task Selection
+tasks:
+  # Which tasks to run
+  download_data: true
+  exploratory_analysis: true
+  feature_engineering: true
+  model_training: true
+  evaluation: true
+  visualization: true
+
+# Performance Metrics
+evaluation:
+  # Metrics to calculate
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - roc_auc
+    - confusion_matrix
+  # Threshold for binary classification
+  threshold: 0.5
